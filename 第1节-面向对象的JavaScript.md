@@ -19,12 +19,12 @@ let chicken={
 let clubOfDucks=[];
 function joinTheClub(animal) {
     if(animal&&typeof (animal.singingLikeDuck==="function")){
-        console.log("u must be a duck,welcome!");
+        console.log("u can sing like a duck,welcome!");
         clubOfDucks.push(animal);
     }
 }
-joinTheClub(duck);//u must be a duck,welcome!
-joinTheClub(chicken);//u must be a duck,welcome!
+joinTheClub(duck);//u can sing like a duck,welcome!
+joinTheClub(chicken);//u can sing like a duck,welcome!
 ```
     在动态类型语言的面向对象设计中,鸭子类型至关重要,根据其思想,不必借助超类型的帮助,就可以在动态类型的语言中实现一个原则:面向接口编程而不是面向实现编程.
     在静态类型语言中,实现面向接口编程往往需要通过抽象类和接口将等将对象进行向上转型,才能实现互相替换使用,也即是体现多态性的价值.
