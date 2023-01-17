@@ -95,5 +95,50 @@ singing(new Rapper());//sing like a rapper
 ## 多态与面向对象程序设计
     多态最根本的作用就是不用再去判断对象是何类型,然后根据判断结果调用对象的某个方法.
     即可以将代码中的条件分支语句转为对象的多态性,进而消除这些条件分支语句.
+## 封装
+1.封装数据
+```JavaScript
+/*
+起初的JS中并未像某些其他语言一样提供private public protected等关键字来实现不同的访问权限
+即我们只能通过依赖变量的作用域来实现封装特性,而且只能模拟出public和private这两种封装特性
+但是随着JS标准的更新,我们已经有了其他的方式可以实现封装特性(let和const的块作用域,#,Symbol等)
+*/
+//这里演示具有函数作用域的var实现封装数据
+var obj = (function () {
+    var name = "空条承太郎";
+    var standName="白金之星"//私有变量
+    return {
+        name:name,//公有变量
+        getName: function () {
+            return name;//公有方法
+        },
+        getStandName: function () {
+            return standName;//公有方法
+        }
+    }
+})();
+console.log(obj.name);//空条承太郎
+console.log(obj.getName());//空条承太郎
+console.log(obj.standName);//undefined
+console.log(obj.getStandName());//白金之星
+```
+2.封装实现
+```
+封装不仅仅是封装数据,也包括隐藏实现细节 设计细节以及隐藏对象的类型等.
+从封装实现来看,封装应使得对象内部的变化和细节对于其他对象是不可见的,
+可以让对象间的耦合变松散,只通过公开的API接口实现通信 
+```
+3.封装类型
+```
+封装类型是静态类型语言(如Java)中一种重要的封装方式,往往通过把对象真正的类型
+隐藏在抽象类和接口之后.
+JS中并没有对抽象类和接口的支持,在封装类型的方面,JS没有能力也没必要做得更多
+```
+4.封装变化
+```
+从设计模式的角度出发,封装在更为重要的层面体现为封装变化.
+通过封装变化,将程序中稳定不变的的部分和可变的部分分隔开,即可保证在程序更新中的稳定性和可拓展性
+```
+
 
 
