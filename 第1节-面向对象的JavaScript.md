@@ -139,6 +139,41 @@ JS中并没有对抽象类和接口的支持,在封装类型的方面,JS没有�
 从设计模式的角度出发,封装在更为重要的层面体现为封装变化.
 通过封装变化,将程序中稳定不变的的部分和可变的部分分隔开,即可保证在程序更新中的稳定性和可拓展性
 ```
-
+## 原型模式和基于原型继承的JS对象系统
+    随着JS标准的更新,我们可以通过Class来创建对象.但是这不意味着JS变成了一门基于类的语言,
+    JS依旧是通过原型机制来创建对象
+使用Class 创建对象
+```JavaScript
+class Stand {
+    standName;
+    standSayHello() {
+        console.log(`I am ${this.standName}`);
+    }
+    constructor(standName){
+        this.standName=standName;
+    }
+}
+let starPlatinum=new Stand("starPlatinum");
+starPlatinum.standSayHello();//I am starPlatinum
+```
+但是我们会发现
+```JavaScript
+console.log(typeof Stand);//function
+```
+那么旧式写法是什么
+```JavaScript
+function Stand(standName) {
+    this.standName=standName;
+}
+Stand.prototype.standSayHello=function(){
+    console.log("I am "+this.standName);
+}
+let theWorld=new Stand("theWorld");
+theWorld.standSayHello();//I am theWorld
+```
+且
+```JavaScript
+console.log(typeof Stand);//function
+```
 
 
