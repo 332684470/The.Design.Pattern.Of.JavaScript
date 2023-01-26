@@ -175,5 +175,77 @@ theWorld.standSayHello();//I am theWorld
 ```JavaScript
 console.log(typeof Stand);//function
 ```
+原型与原型链
+```JavaScript
+由旧式的写法不难看出我们创建'类'(JS没有类的概念,这个所谓的'类'是构造器)
+的写法和创建函数惊人的相似,实际上当我们通过new去调用函数时,
+该函数就不是普通的函数,而是一个函数构造器.
+与其说对象有原型,不如说对象的构造器有原型({Constructor}.prototype)
+// __proto__与prototype
+// JS中给对象提供了__proto__这个隐藏属性,当对象通过new创建后,其__proto__属性会
+// 默认地指向其构造器的原型,即
+let obj=new Object();
+console.log(obj.__proto__===Object.prototype);//true
+// 对象的__proto__连接了对象和其构造器的原型
+function Stand(standName) {
+    this.standName=standName;
+}
+obj=new Stand('starPlatinum');
+console.log(obj.__proto__===Object.prototype);//false
+console.log(obj.__proto__===Stand.prototype);//true
+console.log(Stand.prototype.__proto__===Object.prototype);//true
 
+// 原型链和访问不存在的属性
+let obj1={
+    name:'obj1'
+}
+// 创建关联到obj1的obj2对象
+let obj2=Object.create(obj1);
+console.log(obj2);//{} 输出obj2会发现他是一个空对象
+// 尝试访问obj2.name
+console.log(obj2.name);//obj1
+// 访问到了name属性且是obj1的name属性
+// 由此我们可以知道若是obj1也是类似obj2的方式生成(关联到某个对象),
+// 假设是obj0,obj2和obj1中没有的属性但obj0拥有,obj2和obj1也能访问到该属性
+// 这种链式的结构也就是原型链
 
+// 基于原型的继承
+// 我们知道JS中应该有一个根对象存在,且所有的对象最初都是由该根对象克隆而来
+// 即Object.prototype,且他是根对象也是一个空对象
+console.log(Object.prototype.__proto__);//null
+// 但是如果JS中仅仅是直接克隆根对象,即继承根对象,而就无法基于原型去实现各种各样的继承关系
+// 因此我们可以通过选择性地改变对象构造器的原型的指向就可以实现丰富的继承关系
+let obj={
+    name:'obj'
+};
+function Person(){}
+let p1=new Person();
+console.log(p1.name);//undefined
+// 改变构造器原型的指向实现继承
+Person.prototype=obj;
+let p2=new Person();
+console.log(p2.name);//obj
+
+// 模拟'类'继承自'类'
+function Animal(){}
+Animal.prototype={name:'Animal'};//Animal构造器的原型是一个name属性为'Animal'的对象
+function Dog(){}
+Dog.prototype=new Animal();//Dog的原型是一个由Animal构造器生成的一个对象
+let dog=new Dog();
+console.log(dog.name);//Animal
+
+// 新式写法的'类'继承自'类'
+class Animal{
+    name;
+    constructor(){
+        this.name='Animal';
+    }
+}
+class Dog extends Animal{
+    constructor(){
+        super();
+    }
+}
+let dog=new Dog();
+console.log(dog.name);//Animal
+```
