@@ -60,9 +60,6 @@ function Stand(){
 }
 let obj=new Stand();
 console.log(obj.name);//杀手皇后
-
-
-
 ```
 
 
