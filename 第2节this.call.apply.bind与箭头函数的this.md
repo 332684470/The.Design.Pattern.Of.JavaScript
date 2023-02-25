@@ -62,4 +62,19 @@ let obj=new Stand();
 console.log(obj.name);//杀手皇后
 ```
 
+## 丢失的this
+```JavaScript
+let obj={
+    name:'杀手皇后',
+    getName:function(){
+        console.log(this);
+        return this.name;
+    }
+}
+let getName=obj.getName;
+console.log(obj.getName());//杀手皇后
+console.log(getName());//undefined
+// 不难发现当方法调用方式改变后,this的指向改变了
+```
+
 
