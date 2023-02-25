@@ -172,4 +172,5 @@ let obj = {
 }
 obj.getName();//Window  undefined
 obj.getName1();//{standName: '钢链手指', getName: ƒ, getName1: ƒ} '钢链手指'
+// 若getName2是以function声明的函数,调用getName2(),this指向window对象
 ```
