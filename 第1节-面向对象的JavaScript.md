@@ -19,7 +19,7 @@ let chicken={
 }
 let clubOfDucks=[];
 function joinTheClub(animal) {
-    if(animal&&typeof (animal.singingLikeDuck==="function")){
+    if(animal&&typeof animal.singingLikeDuck==="function"){
         console.log("u can sing like a duck,welcome!");
         clubOfDucks.push(animal);
     }
