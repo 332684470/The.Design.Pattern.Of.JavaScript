@@ -1,8 +1,8 @@
-# 第2节-this.call.apply.bind与箭头函数的this
+# 第 2 节-this.call.apply.bind 与箭头函数的 this
 
 ## this
 
-在JS中this不太一样,他的指向是运行时根据调用方式的不同动态决定的,
+在 JS 中 this 不太一样,他的指向是运行时根据调用方式的不同动态决定的,
 
 而并非声明时就定好(但新增的箭头函数例外).
 
@@ -66,7 +66,7 @@ let obj=new Stand();
 console.log(obj.name);//杀手皇后
 ```
 
-## 丢失的this
+## 丢失的 this
 
 ```JavaScript
 let obj={
@@ -104,7 +104,7 @@ let fn2=function (a,b,c){
 fn2.call(null,1,2,3);//[1, 2, 3]
 ```
 
-apply()和call()的作用完全一致,唯一的区别就是传入参数的形式不同
+apply()和 call()的作用完全一致,唯一的区别就是传入参数的形式不同
 
 ```JavaScript
 // thisArg参数
@@ -113,9 +113,9 @@ apply()和call()的作用完全一致,唯一的区别就是传入参数的形式
 // 在浏览器中即window对象,当然严格模式下会失效,即this===null或this===undefined
 ```
 
-## apply()和call()的用途
+## apply()和 call()的用途
 
-1.改变this的指向
+1.改变 this 的指向
 
 ```JavaScript
 window.name='世界';
@@ -136,11 +136,14 @@ getName.call(obj2);//{name: '黄金体验'}  黄金体验
 
 
 ```
+
 2.借用其他对象的方法
 插眼------------------------------------------------------------------
 
 ## bind()
+
 Function.prototype.bind()和前二者相似,但是返回的是一个函数,且不会立即执行
+
 ```JavaScript
 // bind(thisArg[, arg1[, arg2[, ...]]])
 // bind() 方法创建一个新的函数，在 bind() 被调用时，这个新函数的 this 被指定为 bind() 的第一个参数，而其余参数将作为新函数的参数，供调用时使用
@@ -156,8 +159,10 @@ let withBind=noBind.bind(obj);
 console.log(withBind());//性感手枪
 ```
 
-## 箭头函数的this
-箭头函数不会创建自己的this,他的this是从自己的作用域链的上一层得来
+## 箭头函数的 this
+
+箭头函数不会创建自己的 this,他的 this 是从自己的作用域链的上一层得来
+
 ```JavaScript
 let obj = {
     standName: '钢链手指',
