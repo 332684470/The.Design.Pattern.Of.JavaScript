@@ -1,4 +1,4 @@
-# 第 4 节-异步
+# 第 4 节-异步与Promise
 
 ## 同步与异步
 
@@ -490,15 +490,63 @@ let p2 = p1.catch((reason) => {
 ---
 
 Promise.prototype.finally()
+
 ```
 需要传入一个回调函数(onFinally)作为参数,但onFinally不传入参数
 和catch与then相同,调用finally方法也会返回一个新的promise,
 在promise结束时,无论他是fulfilled还是rejected,finally的回调函数都会执行
 这样的设计为promise结束后无论成功与否都会执行一些语句的情况提供了更方便的实现方案
 ```
+
 ```
 finally()的返回值
 finally在本身无异常抛出的情况下,会返回原本的promise(Returns an equivalent Promise),
 或者说等价原promise的promise实例.若是onFinally抛出了异常或者返回了一个rejected状态的promise实例,
 则finally()会返回rejected状态且带有那个错误值的promise实例,
 否则onFinally的返回值不会对原promise的状态有任何影响
+```
+
+### promise 链与处理异常
+
+当一个 promise 被 reject 时,控制权将被移交至最近的能处理它的地方
+
+```javascript
+let promise = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        reject("灰塔");
+    }, 1000);
+});
+promise
+    .then((value) => console.log(value))
+    .catch((reason) => console.log(reason)); //灰塔
+// -------------------------------------------------
+let promise = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        reject("灰塔");
+    }, 1000);
+});
+promise.then(
+    (value) => console.log(value),
+    (reason) => console.log(reason) //灰塔
+);
+
+// 以上两种情况可以看出
+// 第一种被reject的promise他并未被(无onRejected的)then处理,而是被后面catch处理了
+// 即可以看出,catch并非必须是立即的,因此完全可以将他放在promise链的末尾处理异常
+```
+
+隐式的 try...catch
+
+```javascript
+// 在promise的executor(执行器)和promise处理程序周围存在隐式的try...catch.
+// 即所有同步错误都会得到处理
+// 如果发生异常,就会自动执行reject()
+let promise = new Promise((resolve, reject) => {
+    throw new Error("黄色节制");
+    // 完全等价于
+    // reject(new Error("黄色节制"));
+});
+promise
+    .then((value) => console.log(value))
+    .catch((reason) => console.log(reason)); //Error: 黄色节制
+```
