@@ -349,8 +349,8 @@ let pc = new Promise((resolve, reject) => {
 
 setTimeout(() => {
     console.log(p1, pt, pc);
-    console.log(p1 === pt);
-    console.log(pt === pc);
+    console.log(p1 === pt);//false
+    console.log(pt === pc);//false
 }, 1000);
 
 // 从上方代码的执行结果能发现,不管是调用then还是catch,
