@@ -103,6 +103,7 @@ xhr.send(null);
 
 ```javascript
 xhr.abort();
+
 ```
 
 ## HTTP 头部
